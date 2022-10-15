@@ -2,9 +2,9 @@
 using namespace std;
 const char *nombre_archivo = "archivo.txt";
 struct Diccionario{
-    char palabra[50];            //declaracion de los datos
-    char traduccion [50];
-    char funcion [50];
+    char palabra[500];            //declaracion de los datos
+    char traduccion [500];
+    char funcion [500];
 
 };
 void Crear();
@@ -27,10 +27,10 @@ void Crear(){
 
 		
         cout<<"Ingrese Traduccion:";
-        cin.getline(diccionario.traduccion ,50);
+        cin.getline(diccionario.traduccion ,500);
         
         cout<<"Ingrese Funcion:";
-        cin.getline(diccionario.funcion,50);
+        cin.getline(diccionario.funcion,500);
         
         
         
