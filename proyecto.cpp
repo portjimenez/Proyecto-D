@@ -9,9 +9,11 @@ struct Diccionario{
 };
 void Crear();
 void Leer();
+void Actualizar();
 main ( ) {
 	Crear();
 	Leer();
+	Actualizar();
     system ("pause");
 }
 
@@ -63,4 +65,26 @@ void Leer (){
 		id+=1;
 	}while(feof(archivo)==0);
 	fclose(archivo);
+}
+void Actualizar(){
+	FILE* archivo = fopen(nombre_archivo,"r+b"); 
+	Diccionario diccionario;
+	int id=0;				//posicion de la palabra a cambiar
+	cout<<"Ingrese el ID de la palabra que desea Modificar:";  //posicion donde ira la nueva palabra
+	cin>>id;
+	fseek(archivo,id * sizeof(Diccionario),SEEK_SET);
+
+	cout<<"Ingrese la palabra que desea cambiar:";   //palabra a sustituir
+	cin>>diccionario.palabra,50;        
+	cin.ignore();
+		
+	cout<<"Ingrese la traduccion:";            //nueva traduccion
+	cin.getline(diccionario.traduccion,50);
+		
+	cout<<"Ingrese la funcion:";           //para darle el nuevo concepto
+	cin.getline(diccionario.funcion,500);
+
+	fwrite(&diccionario,sizeof(Diccionario),1,archivo);    
+	fclose(archivo);
+	Leer();
 }
