@@ -75,11 +75,11 @@ void Actualizar(){
 	fseek(archivo,id * sizeof(Diccionario),SEEK_SET);
 
 	cout<<"Ingrese la palabra que desea cambiar:";   //palabra a sustituir
-	cin>>diccionario.palabra,50;        
+	cin>>diccionario.palabra,500;        
 	cin.ignore();
 		
 	cout<<"Ingrese la traduccion:";            //nueva traduccion
-	cin.getline(diccionario.traduccion,50);
+	cin.getline(diccionario.traduccion,500);
 		
 	cout<<"Ingrese la funcion:";           //para darle el nuevo concepto
 	cin.getline(diccionario.funcion,500);
