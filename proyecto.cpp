@@ -59,8 +59,10 @@ void Leer (){
 	do{
 		cout<<"_____________________________"<<endl;
 		cout<<"---------- Palabra ----------"<<endl;
-		cout<<"Traduccion ="<<diccionario.traduccion<<endl;
-		cout<<"Funcion ="<< diccionario.funcion<<endl;
+		cout<<"ID = "<<id<<endl;
+		cout<<"Palabra = "<<diccionario.palabra<<endl;
+		cout<<"Traduccion = "<<diccionario.traduccion<<endl;
+		cout<<"Funcion = "<< diccionario.funcion<<endl;
 		fread(&diccionario,sizeof(Diccionario),1,archivo);
 		id+=1;
 	}while(feof(archivo)==0);
