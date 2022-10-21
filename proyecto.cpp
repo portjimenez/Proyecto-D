@@ -90,3 +90,33 @@ void Actualizar(){
 	fclose(archivo);
 	Leer();
 }
+void Borrar(){
+
+	const char *nombre_archivo_temp = "temp.txt";
+	FILE* archivo = fopen(nombre_archivo,"a+b");
+	FILE* archivo_temp = fopen(nombre_archivo_temp,"w+b");
+	Diccionario diccionario;
+	int id=0, id_n=0; 
+	cout<<"Ingrese el id a eliminar: ";
+	cin>>id;
+	while(fread(&diccionario,sizeof(Diccionario),1,archivo)){
+		if(id_n !=id){
+			fwrite(&diccionario,sizeof(Diccionario),1,archivo_temp);
+		}
+		
+		id_n++;
+	}
+	fclose(archivo);
+	fclose(archivo_temp);
+	                      // se invierte
+	archivo = fopen(nombre_archivo,"w+b"); 
+	archivo_temp = fopen(nombre_archivo_temp,"a+b");
+	
+	while(fread(&diccionario,sizeof(Diccionario),1,archivo_temp)){
+		fwrite(&diccionario,sizeof(Diccionario),1,archivo);
+	}
+	fclose(archivo);
+	fclose(archivo_temp);
+	
+	Leer();
+}
