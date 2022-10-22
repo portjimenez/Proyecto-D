@@ -10,10 +10,14 @@ struct Diccionario{
 void Crear();
 void Leer();
 void Actualizar();
+void Borrar();
+void Buscar();
 main ( ) {
 	Crear();
 	Leer();
 	Actualizar();
+	Borrar();
+	Buscar();
     system ("pause");
 }
 
@@ -117,6 +121,31 @@ void Borrar(){
 	}
 	fclose(archivo);
 	fclose(archivo_temp);
-	
 	Leer();
+}
+void Buscar(){
+	system ("cls");
+	FILE* archivo = fopen(nombre_archivo,"rb");
+	if (!archivo){
+		archivo = fopen(nombre_archivo,"w+b");
+	}
+	Diccionario diccionario;
+	int id=0;
+	fread(&diccionario,sizeof(Diccionario),1,archivo);
+	
+	cout<<"Ingrese el ID de la palabra que desea buscar."<<endl;
+	cin>>id;
+	
+	if(id==id){
+		cout<<"ID = "<<id<<endl;
+		cout<<"Palabra = "<<diccionario.palabra<<endl;
+		cout<<"Traduccion = "<<diccionario.traduccion<<endl;
+		cout<<"Funcion = "<< diccionario.funcion<<endl;
+		fread(&diccionario,sizeof(Diccionario),1,archivo);
+	}
+	else{
+		cout<<"El ID que ingreso es incorrecto"<<endl;
+	}
+    (feof(archivo)==0);
+	fclose(archivo); 
 }
