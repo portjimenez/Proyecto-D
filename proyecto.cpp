@@ -13,16 +13,33 @@ void Actualizar();
 void Borrar();
 void Buscar();
 main ( ) {
-	Crear();
-	Leer();
-	Actualizar();
-	Borrar();
-	Buscar();
+	int op;
+	cout<<"-------------------------------- Bienvenido --------------------------------\n";
+	cout<<"Por favor, ingrese el numeral de la opcion que desea ejecutar :)\n";
+	cout<<"1. Ingresar datos\n";
+	cout<<"2. Visualizar datos\n";
+	cout<<"3. Actualizar datos\n";
+	cout<<"4. Borrar datos\n";
+	cout<<"5. Buscar datos\n";
+	cout<<"Ingrese la opcion deseada: ";
+	cin>>op;
+	switch(op){
+		case 1: Crear(); break;
+		case 2: Leer();  break;
+		case 3: Actualizar(); break;
+		case 4: Borrar(); break;
+		case 5: Buscar(); break;
+	}
+	
+	
+	
+	
+	
     system ("pause");
 }
 
 void Crear(){
-	
+	system ("cls");
 	FILE* archivo = fopen(nombre_archivo,"a+b"); //direccion de guardado de datos
 	char res;
 	Diccionario diccionario;
@@ -48,7 +65,7 @@ void Crear(){
 
 fclose(archivo);
 Leer();
-	}
+}
 void Leer (){
 	system ("cls");
 	FILE* archivo = fopen(nombre_archivo,"rb");
@@ -73,6 +90,7 @@ void Leer (){
 	fclose(archivo);
 }
 void Actualizar(){
+	system ("cls");
 	FILE* archivo = fopen(nombre_archivo,"r+b"); 
 	Diccionario diccionario;
 	int id=0;				//posicion de la palabra a cambiar
@@ -95,6 +113,7 @@ void Actualizar(){
 	Leer();
 }
 void Borrar(){
+	system ("cls");
 
 	const char *nombre_archivo_temp = "temp.txt";
 	FILE* archivo = fopen(nombre_archivo,"a+b");
@@ -124,6 +143,7 @@ void Borrar(){
 	Leer();
 }
 void Buscar(){
+
 	system ("cls");
 	FILE* archivo = fopen(nombre_archivo,"rb");
 	if (!archivo){
