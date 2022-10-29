@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 const char *nombre_archivo = "archivo.txt";
 struct Diccionario{
@@ -12,6 +13,7 @@ void Leer();
 void Actualizar();
 void Borrar();
 void Buscar();
+void Traducir();
 main ( ) {
 	int op;
 	cout<<"-------------------------------- Bienvenido --------------------------------\n";
@@ -21,6 +23,7 @@ main ( ) {
 	cout<<"3. Actualizar datos\n";
 	cout<<"4. Borrar datos\n";
 	cout<<"5. Buscar datos\n";
+	cout<<"6. Traducir codigo\n";
 	cout<<"Ingrese la opcion deseada: ";
 	cin>>op;
 	switch(op){
@@ -29,6 +32,7 @@ main ( ) {
 		case 3: Actualizar(); break;
 		case 4: Borrar(); break;
 		case 5: Buscar(); break;
+		case 6: Traducir(); break;
 	}
 	
 	
@@ -169,3 +173,42 @@ void Buscar(){
     (feof(archivo)==0);
 	fclose(archivo); 
 }
+void Traducir(){
+	cin.ignore();
+	system("cls");
+
+	FILE* archivo = fopen(nombre_archivo,"rb");	
+	int contador = 0;
+	string line = "a", result;
+	do{
+		contador = contador + 1;
+		cout<<contador<<": ";	
+		getline(cin, line);
+		result = result + " " + line;
+	
+	}while (line.length()!=0);
+	
+	Diccionario diccionario;
+	fread(&diccionario,sizeof(Diccionario),1,archivo);	
+	do{
+	   if(diccionario.palabra == result)	{
+	   	cout<<"traduccion: "<<diccionario.traduccion<<endl;
+
+	   }
+	   fread(&diccionario,sizeof(Diccionario),1,archivo);	
+	} while(feof(archivo)==0);
+	
+	
+	
+	fclose(archivo);
+}
+
+
+
+
+
+
+
+
+
+
