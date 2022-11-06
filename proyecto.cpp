@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 const char *nombre_archivo = "archivo.txt";
 struct Diccionario{
@@ -7,6 +8,9 @@ struct Diccionario{
     char traduccion [500];
     char funcion [500];
 
+};
+struct Traductor{
+	char traductor[500];
 };
 void Crear();
 void Leer();
@@ -176,29 +180,31 @@ void Buscar(){
 void Traducir(){
 	cin.ignore();
 	system("cls");
-
-	FILE* archivo = fopen(nombre_archivo,"rb");	
-	int contador = 0;
-	string line = "a", result;
-	do{
-		contador = contador + 1;
-		cout<<contador<<": ";	
-		getline(cin, line);
-		result = result + " " + line;
+	//const char *temporal_alamacen = "alamacenDedatos.txt";
+	FILE* archivo = fopen(nombre_archivo, "rb");
+	//FILE* temporal_archivo = fopen(temporal_alamacen, "w+b");
 	
-	}while (line.length()!=0);
+	char posicion = ' ';
+	string palabra2 = "";
+	string cadenaCaracteres = "";
+	string almacenPalabra, almacenNotraductor;
+	cout<<"Ingrese su codigo a traducir :)\n";
+	getline(cin, cadenaCaracteres, '$');
 	
-	Diccionario diccionario;
-	fread(&diccionario,sizeof(Diccionario),1,archivo);	
-	do{
-	   if(diccionario.palabra == result)	{
-	   	cout<<"traduccion: "<<diccionario.traduccion<<endl;
-
-	   }
-	   fread(&diccionario,sizeof(Diccionario),1,archivo);	
-	} while(feof(archivo)==0);
-	
-	
+	//separar por caracteres las palabras
+	stringstream input_stringstream(cadenaCaracteres);
+	while(getline(input_stringstream, palabra2, posicion)){
+		//cout << "Un valor: " << palabra2 << endl;
+		 Diccionario diccionario;
+		 fread(&diccionario, sizeof(Diccionario),1,archivo);
+		 do{
+		 	if(diccionario.palabra == palabra2){
+		 		cout<<"su traduccion es: "<<diccionario.traduccion<<endl;
+			 }
+			 fread(&diccionario, sizeof(Diccionario),1,archivo);
+		 }while(feof(archivo)==0);
+		 
+	}
 	
 	fclose(archivo);
 }
