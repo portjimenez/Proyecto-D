@@ -9,9 +9,7 @@ struct Diccionario{
     char funcion [500];
 
 };
-struct Traductor{
-	char traductor[500];
-};
+
 void Crear();
 void Leer();
 void Actualizar();
@@ -49,7 +47,7 @@ main ( ) {
 void Crear(){
 	system ("cls");
 	FILE* archivo = fopen(nombre_archivo,"a+b"); //direccion de guardado de datos
-	char res;
+	char res, res2;
 	Diccionario diccionario;
 	do{
 		fflush(stdin);        //codigo de pantalla de los datos a ingresar
@@ -70,12 +68,20 @@ void Crear(){
 	cout<<"Desea ingresar otro dato(s/n):"; //ingreso o no de datos
    cin>>res;
 }while(res=='s'|| res=='S');
+cout<<"Desea regresar al menu principal? (S/N)\n";
+cin>>res2;
+if(res2 == 'S' || res2 == 's'){
+	system("cls");
+	main();
+	
+}
 
 fclose(archivo);
 Leer();
 }
 void Leer (){
 	system ("cls");
+	char res2;
 	FILE* archivo = fopen(nombre_archivo,"rb");
 	if (!archivo){
 		archivo = fopen(nombre_archivo,"w+b");
@@ -95,10 +101,18 @@ void Leer (){
 		fread(&diccionario,sizeof(Diccionario),1,archivo);
 		id+=1;
 	}while(feof(archivo)==0);
+	
+	cout<<"Desea regresar al menu principal? (S/N)\n";
+	cin>>res2;
+	if(res2 == 'S' || res2 == 's'){
+		system("cls");
+		main();
+	}
 	fclose(archivo);
 }
 void Actualizar(){
 	system ("cls");
+	char res2;
 	FILE* archivo = fopen(nombre_archivo,"r+b"); 
 	Diccionario diccionario;
 	int id=0;				//posicion de la palabra a cambiar
@@ -119,10 +133,18 @@ void Actualizar(){
 	fwrite(&diccionario,sizeof(Diccionario),1,archivo);    
 	fclose(archivo);
 	Leer();
+	
+	cout<<"Desea regresar al menu principal? (S/N)\n";
+	cin>>res2;
+	if(res2 == 'S' || res2 == 's'){
+		system("cls");
+		main();
+	
+	}
 }
 void Borrar(){
 	system ("cls");
-
+	char res2;
 	const char *nombre_archivo_temp = "temp.txt";
 	FILE* archivo = fopen(nombre_archivo,"a+b");
 	FILE* archivo_temp = fopen(nombre_archivo_temp,"w+b");
@@ -149,10 +171,17 @@ void Borrar(){
 	fclose(archivo);
 	fclose(archivo_temp);
 	Leer();
+	cout<<"Desea regresar al menu principal? (S/N)\n";
+	cin>>res2;
+	if(res2 == 'S' || res2 == 's'){
+		system("cls");
+		main();
+	
+	}
 }
 void Buscar(){
-
 	system ("cls");
+	char res2;
 	FILE* archivo = fopen(nombre_archivo,"rb");
 	if (!archivo){
 		archivo = fopen(nombre_archivo,"w+b");
@@ -176,6 +205,13 @@ void Buscar(){
 	}
     (feof(archivo)==0);
 	fclose(archivo); 
+	cout<<"Desea regresar al menu principal? (S/N)\n";
+	cin>>res2;
+	if(res2 == 'S' || res2 == 's'){
+		system("cls");
+		main();
+	
+	}
 }
 void Traducir(){
 	cin.ignore();
@@ -184,7 +220,7 @@ void Traducir(){
 	FILE* archivo = fopen(nombre_archivo, "rb");
 	//FILE* temporal_archivo = fopen(temporal_alamacen, "w+b");
 	
-	char posicion = ' ';
+	char posicion = ' ', res2;
 	string palabra2 = "";
 	string cadenaCaracteres = "";
 	string almacenPalabra, almacenNotraductor[500];
@@ -204,27 +240,38 @@ void Traducir(){
 	
 
 	//separar por caracteres las palabras
-	stringstream input_stringstream(cadenaCaracteres);
+	stringstream input_stringstream(cadenaCaracteres); //se ingresa la cadena que contiene el codigo del usuario
 	while(getline(input_stringstream, palabra2, posicion)){
 		//cout<<"valor: "<< palabra2 <<endl;
+		
+		//condicion para remplazar codigo a español
 		Diccionario diccionario;
 		fread(&diccionario, sizeof(Diccionario),1,archivo);
 		if(palabra2 != diccionario.palabra){
-			cout<<palabra2;
+			cout<<palabra2<<" ";
 		}
 		
+		//do while para hacer la validacion de cada palabra reservada que se encuantra en el archivo.txt
 		 do{
 		 	if(diccionario.palabra == palabra2){
-		 		cout<<diccionario.traduccion;
+		 		cout<<diccionario.traduccion<<" ";
 			 }
 			 fread(&diccionario, sizeof(Diccionario),1,archivo);
 		 }while(feof(archivo)==0);
 		
 	}
+	
 	cout<<"\n";
 	
-	
 	fclose(archivo);
+	
+	cout<<"Desea regresar al menu principal? (S/N)\n";
+	cin>>res2;
+	if(res2 == 'S' || res2 == 's'){
+		system("cls");
+		main();
+	
+	}
 }
 
 
