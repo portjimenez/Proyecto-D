@@ -187,24 +187,42 @@ void Traducir(){
 	char posicion = ' ';
 	string palabra2 = "";
 	string cadenaCaracteres = "";
-	string almacenPalabra, almacenNotraductor;
+	string almacenPalabra, almacenNotraductor[500];
+	cout<<"----------- TRADUCTOR DE CODIGO FUENTE -----------\n";
+	cout<<"Para traducir su codigo debe de dejar un espacio en cada palabra reservada que posea\n";
+	cout<<"ejemplo: \n";
+	cout<<"\tfor ( int x=0;x<=10;x++){\n";
+	cout<<"\t cout <<x<< endl;\n";
+	cout<<"\t}\n";
+	cout<<"___________________________________________________________\n";
+	cout<<"Para finalizar o para traducir el codigo digitado debe de digitar el siguiente simbolo '$' luego dar enter\n";
+	cout<<"___________________________________________________________\n";
 	cout<<"Ingrese su codigo a traducir :)\n";
 	getline(cin, cadenaCaracteres, '$');
 	
+	cout<<"\n";
+	
+
 	//separar por caracteres las palabras
 	stringstream input_stringstream(cadenaCaracteres);
 	while(getline(input_stringstream, palabra2, posicion)){
-		//cout << "Un valor: " << palabra2 << endl;
-		 Diccionario diccionario;
-		 fread(&diccionario, sizeof(Diccionario),1,archivo);
+		//cout<<"valor: "<< palabra2 <<endl;
+		Diccionario diccionario;
+		fread(&diccionario, sizeof(Diccionario),1,archivo);
+		if(palabra2 != diccionario.palabra){
+			cout<<palabra2;
+		}
+		
 		 do{
 		 	if(diccionario.palabra == palabra2){
-		 		cout<<"su traduccion es: "<<diccionario.traduccion<<endl;
+		 		cout<<diccionario.traduccion;
 			 }
 			 fread(&diccionario, sizeof(Diccionario),1,archivo);
 		 }while(feof(archivo)==0);
-		 
+		
 	}
+	cout<<"\n";
+	
 	
 	fclose(archivo);
 }
